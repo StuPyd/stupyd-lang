@@ -1,12 +1,185 @@
 Metadata-Version: 2.1
 Name: stupyd
-Version: 0.0.1
+Version: 0.0.2
 Summary: official stupyd programming language package
 Home-page: https://github.com/StuPyd/stupyd-lang
 Author: stupyd group
 Author-email: sunmch15@foxmail.com
 License: Apache
-Description: UNKNOWN
+Description: # StuPyd
+        
+        [![PyPI pyversions](https://img.shields.io/badge/python-3.7-blue.svg)]()
+        [![Build](https://img.shields.io/teamcity/codebetter/bt428.svg)]()
+        [![PyPI status](https://img.shields.io/pypi/status/ansicolortags.svg)]()
+        [![License](https://img.shields.io/badge/license-apache-green.svg)]()
+        [![Debugger](https://img.shields.io/badge/debugger-support-orange.svg)]()
+        
+        StuPyd is an interpreted high-level programming language for programming education. It is intended to have a easy-to-read syntax and useful intergrated data structures with related operation methods to help its users to understand programming and other related computer science concepts. 
+        
+        You can get more information on our project [page]().
+        
+        
+        ## Getting Started
+        
+        These instructions will lead you to install stupyd-interpreter on your machine.
+        
+        ### Prerequisites
+        
+        1. StuPyd is based on [**Python3**](https://www.python.org), thus you must have Python3 (3.6.0 or higher) installed first. You can check your version with:
+        	
+        	~~~
+        	➜  ~ python3 -V
+        	~~~
+        
+        2. The stupyd-interpreter is released on PyPI, thus you need to install **pip** first. you can see installation guide [here](https://pip.pypa.io/en/stable/installing/)
+        
+        ### Installing
+        
+        Our PyPI page is [here](https://pypi.org/project/stupyd/). You can easily install the stupyd-interpreter with:
+        
+        ~~~
+        ➜  ~ pip install stupyd
+        ~~~
+        
+        After installation, type **"stupyd"** in terminal, you should see:
+        
+        ~~~
+        ➜  ~ stupyd
+        usage: stupyd [-h] filename
+        
+        positional arguments:
+          filename    path of source code
+        
+        optional arguments:
+          -h, --help  show this help message and exit
+        ~~~
+        
+        Now you can run StuPyd code on your machine :)
+        
+        
+        ## Running the code
+        
+        Let's write a simple **"hello_world.sp"**:
+        
+        ~~~ c
+        string str
+        "hello, world" -> str
+        print(str)
+        
+        ~~~
+        
+        We can run this code by:
+        
+        ~~~
+        ➜  stupyd-lang git:(master) ✗ stupyd test/hello_world.sp
+        The stupyd-interpreter.
+        
+        "hello, world!"
+        ~~~
+        
+        
+        ## Test on local machine
+        
+        For all the code in this repository is for packaging, you can not run them directly. To test the code, you have two methods.
+        
+        ### Re-package on local machine
+        
+        Step1: Re-package in local environment
+        
+        ~~~
+        ➜  stupyd-lang git:(master) ✗ python3 setup.py sdist bdsit_wheel
+        ~~~
+        
+        Step2: Install local wheel using **pip**
+        
+        ~~~
+        ➜  stupyd-lang git:(master) ✗ pip3 install dist/stupyd-1.0.14-py3-none-any.whl
+        ~~~
+        
+        ### Using *run.py*
+        
+        During our development, we write a *run.py* in the *test/* directory, it's very simple.
+        
+        ~~~
+        import sys 
+        sys.path.append("..") 
+        from stupyd.main import main
+        
+        main()
+        ~~~
+        You can use it to test.
+        
+        ~~~
+        ➜  test git:(master) ✗ python3 run.py hello_world.sp
+        "hello, world!"
+        ~~~
+        
+        ## Debugging
+        
+        From version 1.0.18, you can debug source file with *stupyd-debugger*. After installation, type **'spd'** to launch it, below is an example:
+        
+        ~~~
+        ➜  stupyd-lang git:(master) ✗ spd test/hello_world.sp
+        The stupyd-debugger. Type 'help' or '?' for help.
+        
+        spd >> ?
+        
+        Documented commands (type help <topic>):
+        ========================================
+        break  help  info  next  quit
+        
+        
+        spd >> ? info
+        print program general info
+        
+        spd >> info
+        constant space: ['"hello, world!"']
+        variable space: ['a']
+        
+        index     ins_num   op_num    instruction         operator
+        0         1         0         DECL_FAST           a
+        2         17        0         LOAD_STRING         "hello, world!"
+        4         2         0         STORE_FAST          a
+        6         3         0         LOAD_FAST           a
+        8         7         -1        PRINT               none
+        10        13        -1        QUIT                none
+        
+        spd >> next
+        current instruction:
+        index     ins_num   op_num    instruction         operator
+        0         1         0         DECL_FAST           a
+        variables:{}
+        data stack:[]
+        
+        spd >> break 10
+        "hello, world!"
+        current instruction:
+        index     ins_num   op_num    instruction         operator
+        10        13        -1        QUIT                none
+        variables:{'a': '"hello, world!"'}
+        data stack:[]
+        
+        spd >> next
+        program ended.
+        
+        spd >> quit
+        
+        ➜  stupyd-lang git:(master) ✗
+        ~~~
+        
+        It's just a simple and function-incompleted debugger for now, we will make it better later.
+        
+        More information about StuPyd bytecode instruction and *stupyd-interpreter* will be updated later on our project [page](https://muchensun.github.io/stupyd-lang/behind-stupyd/behind-stupyd.html).
+        
+        ## License
+        
+        This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+        
+        ## Acknowledgments
+        
+        We are a group from [School of Information Science and Engineering](http://xxxy.lzu.edu.cn), Lanzhou University, China.
+        
+        
 Keywords: python stupyd education programming language
 Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
