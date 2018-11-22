@@ -24,7 +24,12 @@ class Interpreter:
 
             # 14 - 16 is used
 
-            17: self.LOAD_STRING
+            17: self.LOAD_STRING,
+
+            # instructions for array operation
+            18: self.BUILD_ARRAY,
+            19: self.LOAD_SUBSCR,
+            20: self.STORE_SUBSCR,
         }
 
         self.false_flag = 0
@@ -57,9 +62,7 @@ class Interpreter:
             instruction = self.code_obj[index]
             name = self.instruction_set[instruction[0]].__name__
             code = instruction[0]
-            if code == 0:
-                op = self.num_array[instruction[1]]
-            elif code == 17:
+            if code in [0, 17, 18, 19, 20]:
                 op = self.num_array[instruction[1]]
             elif code in [1, 2, 3]:
                 op = self.id_array[instruction[1]]
@@ -162,6 +165,27 @@ class Interpreter:
     # a flag for while_loop, doing nothing
     def WHILE_LOOP(self, useless):
         pass
+
+    def BUILD_ARRAY(self, index):
+        pass
+        array = []
+        for i in range(self.num_array[index]):
+            val = self.stack.pop()
+            array.append(val)
+        self.stack.append(array)
+
+    def LOAD_SUBSCR(self, index): # at this moment, the top of the stack must be an array
+        foot = self.num_array[index]
+        array = self.stack.pop()
+        val = array[foot]
+        self.stack.append(val)
+
+    def STORE_SUBSCR(self, index): # at this moment, the top of the stack must an array, under which is a number
+        foot = self.num_array[index]
+        array = self.stack.pop()
+        val = self.stack.pop()
+        array[foot] = val
+        self.stack.append(array)
 
     # quit the whole program, endding
     def QUIT(self, useless):

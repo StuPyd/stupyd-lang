@@ -1,0 +1,4 @@
+int a
+2 -> b
+print(a)
+
