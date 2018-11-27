@@ -166,26 +166,29 @@ class Interpreter:
     def WHILE_LOOP(self, useless):
         pass
 
-    def BUILD_ARRAY(self, index):
+    def BUILD_ARRAY(self, useless):
         pass
+        length = self.stack.pop() # length of the array will be load previously
         array = []
-        for i in range(self.num_array[index]):
-            val = self.stack.pop()
+        # Note that in this version, all the 'num' are considered as integer by defulat, BUT they can be float !!!
+        for i in range(int(length)):
+            val = 0
             array.append(val)
         self.stack.append(array)
 
-    def LOAD_SUBSCR(self, index): # at this moment, the top of the stack must be an array
-        foot = self.num_array[index]
+    def LOAD_SUBSCR(self, useless): # at this moment, the top of the stack must be an array
+        foot = self.stack.pop() # index of the element will be load previously
         array = self.stack.pop()
-        val = array[foot]
+        val = array[int(foot)]
         self.stack.append(val)
 
-    def STORE_SUBSCR(self, index): # at this moment, the top of the stack must an array, under which is a number
-        foot = self.num_array[index]
+    def STORE_SUBSCR(self, useless): # at this moment, the top of the stack must an array, under which is a number
+        foot = self.stack.pop() # index of the element will be load previously
         array = self.stack.pop()
         val = self.stack.pop()
-        array[foot] = val
+        array[int(foot)] = val
         self.stack.append(array)
+
 
     # quit the whole program, endding
     def QUIT(self, useless):

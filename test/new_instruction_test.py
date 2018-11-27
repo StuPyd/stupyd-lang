@@ -24,32 +24,34 @@ source code:
     print(a)
 
 id_array: a, a, a, a, a, a
-num_array: 0, 3, 1, 0, 2, 1, 3, 2, 1
+num_array: 3, 1, 0, 2, 1, 3, 2, 1
 code_obj:
     DECL_FAST(0) a
-    LOAD_NUM(0) 0
-    LOAD_NUM(0) 0
-    LOAD_NUM(0) 0
-    BUILD_ARRAY(1) 3
+    LOAD_NUM(0) 3
+    BUILD_ARRAY(-1) 
     STORE_FAST(0) a
     
-    LOAD_NUM(2) 1
+    LOAD_NUM(1) 1
     LOAD_FAST(1) a
-    STORE_SUBSCR(3) 0
+    LOAD_NUM(2) 0
+    STORE_SUBSCR(-1)
     STORE_FAST(1) a
     
-    LOAD_NUM(4) 2
+    LOAD_NUM(3) 2
     LOAD_FAST(2) a
-    STORE_SUBSCR(5) 1
+    LOAD_NUM(4) 1
+    STORE_SUBSCR(-1)
     STORE_FAST(2) a
     
-    LOAD_NUM(6) 3
+    LOAD_NUM(5) 3
     LOAD_FAST(3) a
-    STORE_SUBSCR(7) 2
+    LOAD_NUM(6) 2
+    STORE_SUBSCR(-1)
     STORE_FAST(3) a
     
     LOAD_FAST(4) a
-    LOAD_SUBSCR(8) 1
+    LOAD_NUM (7) 1
+    LOAD_SUBSCR(-1) 
     PRINT(-1)
     
     LOAD_FAST(5) a
@@ -60,39 +62,41 @@ code_obj:
 '''
 
 def main():
-    num_array = [0, 3, 1, 0, 2, 1, 3, 2, 1]
+    num_array = [3, 1, 0, 2, 1, 3, 2, 1]
     id_array = ['a', 'a', 'a', 'a', 'a', 'a']
     code_obj = {
         0: [1, 0],
         2: [0, 0],
-        4: [0, 0],
-        6: [0, 0],
-        8: [18, 1],
-        10: [2, 0],
+        4: [18, -1],
+        6: [2, 0],
 
-        12: [0, 2],
-        14: [3, 1],
-        16: [20, 3],
-        18: [2, 1],
+        8: [0, 1],
+        10:[3, 1],
+        12:[0, 2],
+        14:[20, -1],
+        16:[2, 1],
 
-        20: [0, 4],
-        22: [3, 2],
-        24: [20, 5],
+        18: [0, 3],
+        20: [3, 2],
+        22: [0, 4],
+        24: [20, -1],
         26: [2, 2],
 
-        28: [0, 6],
+        28: [0, 5],
         30: [3, 3],
-        32: [20, 7],
-        34: [2, 3],
+        32: [0, 6],
+        34: [20, -1],
+        36: [2, 3],
 
-        36: [3, 4],
-        38: [19, 8],
-        40: [7, -1],
-
-        42: [3, 5],
+        38: [3, 4],
+        40: [0, 7],
+        42: [19, -1],
         44: [7, -1],
 
-        46: [13, -1],
+        46: [3, 5],
+        48: [7, -1],
+
+        50: [13, -1],
     }
     stupyd = Interpreter(code_obj, num_array, id_array)
     shell = stupydShell(stupyd)
